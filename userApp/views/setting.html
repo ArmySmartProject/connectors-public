@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="/css/font.css">
+  <link rel="stylesheet" type="text/css" href="/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="/css/csBot.css">
+  <title>setting</title>
+</head>
+
+<body>
+<!-- connect_wrap -->
+<div id="connect_wrap">
+  <div class="connect_top" style="border-bottom: 1px solid #e2e2f0;">
+    <div>
+      <button type="button" class="chevron_prev text_hide hide">이전 페이지</button>
+      <div class="title">
+        <div class="subtitle align_center">
+          <em>설정</em>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- //connect_top -->
+  <div id="content">
+    <div class="connect_setting">
+      <div class="profile">
+        <a href="#none">
+          <span><%= result.name %></span>
+        </a>
+        <div class="image">
+          <img src="/image/<%= result.icon %>" alt="사용자 사진">
+        </div>
+      </div>
+      <!-- //profile -->
+
+      <div class="setting_area">
+        <ul class="setting_list">
+          <li><a href="#none">공지사항</a></li>
+          <li><a href="#none">알림설정</a></li>
+          <li><a href="#none">도움말</a></li>
+        </ul>
+
+        <ul class="setting_list">
+          <li><a href="#none">이용약관</a></li>
+          <li><a href="#none">개인정보 처리방침</a></li>
+          <li class="list_info"><a href="#none">버전정보<span class="info">1.12</span></a></li>
+          <li><a href="/user/logout">로그아웃</a></li>
+        </ul>
+      </div>
+      <!-- //setting_area -->
+    </div>
+    <!-- //connect_setting -->
+  </div>
+  <!-- //content -->
+  <% include ../views/footer.html %>
+  <!-- //connect_btm -->
+</div>
+<!-- //connect_wrap -->
+</body>
+
+</html>

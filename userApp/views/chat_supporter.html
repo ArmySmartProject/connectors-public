@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" type="image/x-icon" href="/image/circle_bg.png">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="/css/font.css">
+  <link rel="stylesheet" type="text/css" href="/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="/css/csBot.css">
+  <title>[supporter] chatting</title>
+  <style>
+    body {
+      background-color: rgb(240, 227, 227);
+    }
+  </style>
+</head>
+
+<body class="c_btm_hide">
+<div id="supporter_btn_div">
+  <button type="button" style="
+    background-color: powderblue;
+    font-size: 20px;
+    font-family: 'NotoSansKR', sans-serif;
+    " class="supporter_test_btn">문의목록보기</button>
+</div>
+
+<div id="test" style="
+    width:500px;
+    background-color: blanchedalmond;
+    font-size: 20px;
+    font-family: 'NotoSansKR', sans-serif;">
+  <ul id="chat_candidates" style="width: 800px"></ul>
+</div>
+  <!-- cschat_wrap -->
+  <div id="connect_wrap" style="display:none">
+    <div class="connect_top">
+      <div>
+        <button type="button" class="chevron_prev text_hide">이전 페이지</button>
+        <div class="title">
+          <div class="subtitle align_center">
+            <em>팬심 서비스 센터</em>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- //connect_top -->
+
+    <div id="content">
+      <div class="cschat_body">
+        <div class="cschat_mid">
+          <ul class="cs_talk" id="chat_talk_section">
+<!--            <li class="bot">-->
+<!--              <div class="message">-->
+<!--                <p class="text">-->
+<!--                  고객님과 상담을 시작합니다.-->
+<!--                </p>-->
+<!--              </div>-->
+<!--            </li>-->
+            <!--<li class="date chatend" id="chat_end_dt">-->
+            <!--<em>2020년 4월 6일 월요일</em>-->
+            <!--<em>채팅이 종료되었습니다.</em>-->
+            <!--</li>-->
+<!--            <li class="bot">-->
+<!--              <button type="button" class="chat_out">채팅종료(눌러주세요)</button>-->
+<!--            </li>-->
+          </ul>
+        </div>
+        <!-- //cschat_mid -->
+        <div class="cschat_btm">
+          <div class="user_writes">
+            <textarea name="user_message" id="user_message_input" rows="1" class="textbox_basic"></textarea>
+            <button type="button" id="text_send" class="text_hide">글 남기기</button>
+          </div>
+        </div>
+        <!-- //cschat_btm -->
+
+        <!-- 상담원 평가 모달 -->
+        <div class="dialog">
+          <div id="supporter_evaluation">
+            <div class="text_box">
+              <p>
+                대화는 만족스러웠나요??
+              </p>
+            </div>
+            <div class="suggestion">
+              <div class="star_score">
+                <div class="score">
+                  <button type="button"><em class="text_hide">5점 만점에 1점</em></button>
+                </div>
+                <div class="score">
+                  <button type="button"><em class="text_hide">5점 만점에 2점</em></button>
+                </div>
+                <div class="score">
+                  <button type="button"><em class="text_hide">5점 만점에 3점</em></button>
+                </div>
+                <div class="score">
+                  <button type="button"><em class="text_hide">5점 만점에 4점</em></button>
+                </div>
+                <div class="score">
+                  <button type="button"><em class="text_hide">5점 만점에 5점</em></button>
+                </div>
+              </div>
+              <textarea name="evaluation" id="" cols="30" rows="10">안녕하세요
+  제가 건의사항이 있어서 이렇게 글을 남깁니다. 이런저러한 상황에서 요 기능이 없어서 불편함을 느꼈습니다.
+  요 기능이 있다면은 요러저러호롤로한 상황에서도 불편함이 없을 것 같습니다.
+  okey~? okey~</textarea>
+              <button type="submit">서포터 평가완료</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- //cschat_body -->
+    </div>
+    <!-- //content -->
+    <div id="connect_btm">
+      <div id="wrapper">
+        <div class="lefe_side">
+          <a href="home.html"><span class="fas fa-home"></span><em class="label">홈</em></a>
+        </div>
+        <div>
+          <a href="chatting_list.html" class="chat_list"><span class="far fa-comment"></span><em class="text_hide">채팅 리스트 보기</em></a>
+          <!-- [D] 총 메세지 수 표시
+            모든 페이지에 적용되어야 합니다 -->
+<!--          <div class="new_message"><span class="text_hide">새로운 메세지 총</span><em class="message_num">8</em><span class="text_hide">개</span></div>-->
+        </div>
+        <div class="right_side">
+          <a href="/user/service/setting"><span class="fas fa-cog"></span><em class="label">설정</em></a>
+        </div>
+      </div>
+    </div>
+    <!-- //connect_btm -->
+  </div>
+<!-- //cschat_wrap -->
+  <script type="text/javascript" src="/js/jQuery3.4.1.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js"></script>
+<script type="text/javascript">
+
+    var serverIp = '<%= serverIp %>';
+    var serverPort = '<%= serverPort %>';
+    var serverURL = serverIp + ':' + serverPort;
+    console.log('serverURL is ' + serverURL);
+
+    var userId = '프로페셔널 정';
+    var userType = 'supporter';
+  </script>
+<script type="text/javascript" src="/js/chat.js"></script>
+<script type="text/javascript" src="/js/socket_client.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+@charset "utf-8";
+/* MINDsLab. YMJ. 20190830 */
+
+/* [reset css] */
+/* font 수정하기 */
+html, body {height: 100%;}
+* {font-family:"NotoSansKR", sans-serif;}
+body {margin:0; padding:0; font-family:"NotoSansKR", sans-serif; font-size:14px; background:none; color: #5e5c68; box-sizing: border-box;}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td,legend,em,span,a,button {margin:0; padding:0; font-family:"NotoSansKR", sans-serif; box-sizing: border-box;}
+h1,h2,h3,h4,h5,h6 {font-family:"NotoSansKR", sans-serif; box-sizing: border-box;}
+table {border-spacing:0; border-collapse:collapse; font-family:"NotoSansKR", sans-serif;}
+th, td {word-break:break-all;}
+form,fieldset {display:block;}
+form,fieldset,img {border:none;}
+address,caption,cite,code,dfn,em,th,var {font-style:normal; font-weight:normal;}
+ol,ul,li {list-style:none;}
+abbr,acronym {border:none;}
+hr {display:none;}
+a {text-decoration:none; cursor:pointer; font-family:"NotoSansKR", sans-serif; -webkit-tap-highlight-color:transparent;}
+a:link,a:visited {text-decoration:none;}
+a:hover,a:active,a:focus {text-decoration:none;}
+textarea {overflow:auto; resize: none; border: none; color: #5e5c68;}
+textarea::placeholder {color: #999;}
+html:first-child select {min-height:20px;} /* opera 9 & below fix */
+option {padding-right:6px;} /* firefox fix */
+legend {position:absolute; top:0; left:0; width:0; height:0; overflow:hidden; visibility:hidden; font-size:0; line-height:0;} /* for screen reader */
+pre {word-wrap:break-word; white-space: pre-wrap;}
+label {font-family:"NotoSansKR", sans-serif;}
+br {background:none !important;}
+img {vertical-align:top;}
+a:focus, input:focus, textarea:focus, button:focus {outline:none !important;}
+/* 추가 200306 AMR border */
+button {border: none; cursor:pointer; color: #363636; background-color: #fff; -webkit-tap-highlight-color:transparent;}
+
+/* input 기본 스타일 초기화 */
+input {-webkit-appearance:none; -moz-appearance:none; appearance:none;}
+
+/* input type number 에서 화살표 제거 */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {margin:0; -webkit-appearance:none; -moz-appearance:none; appearance:none;}
+input[type=number] {-moz-appearance:textfield;}
+/* Select box 스타일 초기화 */
+select {-webkit-appearance:none; -moz-appearance:none; appearance:none;}

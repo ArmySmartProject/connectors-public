@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="shortcut icon" type="image/x-icon" href="/image/circle_bg.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="/css/font.css">
+  <link rel="stylesheet" type="text/css" href="/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="/css/csBot.css">
+  <link rel="stylesheet" type="text/css" href="/css/swiper.min.css">
+  <title>service home</title>
+</head>
+
+<body>
+<!-- connect_wrap -->
+<div id="connect_wrap">
+  <div class="connect_top">
+    <div>
+      <button type="button" class="chevron_prev text_hide" onclick="location.href='/user/services/<%= topCategory %>'">이전으로 가기</button>
+      <div class="title">
+        <div class="subtitle slide_toggle">
+          <!-- [D] div.image는 service_home.html에서 사용됩니다 -->
+          <div class="image">
+            <img src="/image/sample/ee_company.png" alt="기업로고">
+          </div>
+          <em>팬심</em>
+        </div>
+      </div>
+      <button type="button" class="favorites">
+        <em class="text_hide">즐겨찾기</em>
+      </button>
+    </div>
+  </div>
+  <!-- //connect_top -->
+  <div id="content">
+    <div class="service_home">
+      <div class="service_title">
+        <% let svcInfo; let coInfo;%>
+        <% for(let service of services) { %>
+        <div class="image">
+          <img src="/image/sample/<%= service.service_info.image %>" alt="기업이미지">
+        </div>
+        <div class="image_desc">
+          <em><%= service.service_info.name %></em>
+          <span><%= service.service_info.company_name %></span>
+        </div>
+        <% svcInfo = service.service_info.name; coInfo = service.service_info.company_name; %>
+        <% break; } %>
+      </div>
+      <!-- //service_title -->
+
+      <div class="service_menu">
+        <div class="affix">
+          <div class="btn_dual">
+<!--            수정 AMR 200420 소식 button 가리고 FAQ button 크게했습니다-->
+            <button type="button" class="on" id="btn_FAQ" style="width: 100%">FAQ</button>
+            <button type="button" id="btn_news" style="display: none;">소식</button>
+          </div>
+          <!-- //btns -->
+          <div class="swiper-container service_category">
+            <ul class="swiper-wrapper btn_basic">
+              <!-- [D] 카테고리를 클릭하면 ul.questions 리스트가 바껴야합니다 -->
+              <% let className = 'on'; let categoryName; for(let category of services) { %>
+              <li class="swiper-slide"><button type="button" value="<%= category.name %>" class="<%= className %>"><%= category.name %></button></li>
+              <% if (className === 'on') { categoryName = category.name } %>
+              <% className = 0; } %>
+            </ul>
+          </div>
+        </div>
+        <div class="service">
+          <div class="service_list" id="service_list">
+            <ul class="questions" id="questions">
+              <!-- [A] .question 을 클릭하면 .q_answer 가 보여집니다
+              하단 스크립트 -->
+              <% for(let category of faq) { %>
+              <% for(let test of category.cs_qa_data) { %>
+              <li>
+                <button type="button" class="question" onclick="qaClick"><%= test.question %></button>
+                <div class="q_answer">
+                  <p><%= test.answer %></p>
+                  <% if (test.support_type === 'bot') { %>
+                  <button hr type="button" class="btn_chat q_chat"
+                          onclick="goChatRoomFromServiceHome('<%= test.support_type %>', '<%= test.question %>')">챗봇 상담</button>
+                  <% } else if (test.support_type === 'supporter') { %>
+                  <button hr type="button" class="btn_chat q_chat"
+                          onclick="goChatRoomFromServiceHome('<%= test.support_type %>', '<%= test.question %>')">담당자 연결</button>
+                  <% } %>
+                </div>
+              </li>
+              <% } %>
+              <% } %>
+            </ul>
+            <!-- //questions -->
+            <div class="btn_other">
+              <button type="button" class="btn_chat" onclick="goChatRoomFromServiceHome('supporter','<%= categoryName %> 기타 문의')"><%= categoryName %> 기타 문의</button>
+            </div>
+          </div>
+        </div>
+        <!-- //service -->
+      </div>
+    </div>
+  </div>
+  <!-- //content -->
+  <% include ../views/footer.html %>
+  <!-- //connect_btm -->
+</div>
+<!-- //connect_wrap -->
+
+<form id="goChat" method="post" action="/user/service/chat" style="display:none">
+  <input type="text" name="sessionId">
+  <input type="text" name="csService">
+  <input type="text" name="csCategory">
+  <input type="text" name="question">
+  <input type="text" name="supportType">
+</form>
+<script type="text/javascript" src="/js/jQuery3.4.1.js"></script>
+<script src="/js/swiper.min.js"></script>
+<script>
+  var serviceName = '<%= svcInfo %>';
+  var companyName = '<%= coInfo %>';
+  var category = '<%= categoryName %>';
+
+  function goChatRoomFromServiceHome(supportType, question) {
+    let status = "chatting";
+    if (supportType === 'bot') {
+      status = 'chatting';
+    } else if (supportType === 'supporter') {
+      status = 'waiting';
+    }
+
+    $.ajax({
+      url: '/user/service/chat/insertSession',
+      type: 'POST',
+      data: {serviceName: serviceName, companyName: companyName, status: status},
+      success: function (data) {
+        if (data.sessionId) {
+          console.log('sessionId: ' + data.sessionId);
+          var $goChatFrm = $('form#goChat');
+          $goChatFrm.find('input[name="sessionId"]').val(data.sessionId);
+          $goChatFrm.find('input[name="csService"]').val(serviceName);
+          $goChatFrm.find('input[name="csCategory"]').val(category);
+          $goChatFrm.find('input[name="question"]').val(question);
+          $goChatFrm.find('input[name="supportType"]').val(supportType);
+          $goChatFrm.submit();
+        }
+      },
+      error: function(data) {
+        console.error('Session insert err.');
+      }
+    });
+  }
+
+  function qaClick() {
+    var $content = $('#content');
+    $('.question').on('click', function(){
+      // open
+      $(this).parent('li').toggleClass('on');
+
+      if(!$(this).parent('li').is('.on')){
+        return
+      }
+
+      //scroll
+      var contentHeight = $content.height();
+      var titleHight = 114;
+      var connectbtmTop = $('#connect_btm').offset().top;
+
+      var listHeight = $(this).parent('li').height();
+      var listOffsetTop = $(this).offset().top;
+
+      var ulHeight = contentHeight - titleHight;
+      var listBottom = listOffsetTop + listHeight;
+
+      var nowScroll = $content.scrollTop();
+      var moveScroll = 0;
+
+      // 질문 클릭 시
+      if ( listHeight < ulHeight && listBottom > connectbtmTop ) {
+        moveScroll = listOffsetTop + listHeight - connectbtmTop;
+        $content.scrollTop(nowScroll + moveScroll + 10);
+        return;
+      }
+    });
+  }
+
+  $(document).ready(function(){
+    $('.favorites').on('click', function(e){
+      e.preventDefault();
+      $(this).toggleClass('on');
+    });
+
+    // 추가 AMR 200417
+    var swiper = new Swiper('.service_category', {
+      slidesPerView: 2.5,
+      spaceBetween: 10,
+    });
+
+    // 추가 AMR 200419 service menu event
+    function handleContentServiceMenu() {
+      // 카테고리 클릭 시 버튼 색 변경
+      $('.service_category button').on('click', function(){
+        $('.service_category button').removeClass('on');
+        $(this).addClass('on');
+        category = $(this).attr("value");
+        $.ajax({
+          url: '/user/service/category/faq',
+          type: 'POST',
+          data: {category: $(this).attr("value")},
+          success: function(res) {
+            if (res) {
+              $('#questions').remove();
+              let elem = '<ul class="questions" id="questions">';
+              let qaData = res['result'][0]['cs_qa_data'];
+              for(let i = 0; i < qaData.length; i++) {
+
+                elem += '<li> \
+                          <button type="button" class="question">' + qaData[i].question + '</button> \
+                          <div class="q_answer"> \
+                            <p> ' + qaData[i].answer + '</p>';
+                if(qaData[i].support_type === 'bot') {
+                  elem += '<button type="button" class="btn_chat q_chat" onclick="goChatRoomFromServiceHome(\'' + qaData[i].support_type + '\' , \'' + qaData[i].question + '\')">챗봇 상담</button>';
+                } else if(qaData[i].support_type === 'supporter'){
+                  elem += '<button type="button" class="btn_chat q_chat" onclick="goChatRoomFromServiceHome(\'' + qaData[i].support_type + '\' , \'' + qaData[i].question + '\')">담당자 연결</button>';
+                }
+                elem +=  '</div> \
+                        </li>';
+              }
+              elem += '<ul> \
+                       <div class="btn_other"> \
+                        <button type="button" class="btn_chat" onclick="goChatRoomFromServiceHome(\'supporter\',\'' + category + ' 기타문의\')">' + category + ' 기타 문의</button> \
+                       </div>';
+              document.getElementById("service_list").innerHTML = elem;
+
+              var $content = $('#content');
+
+              qaClick();
+              // end 질문 클릭 시 scrollTop
+
+              // affix가 시작 되어야 할 scrollTop
+              var contentTop = $content.offset().top;
+              var menuTop = $('.service_menu').offset().top;
+              var startAffix = menuTop - contentTop;
+
+              // affix가 fixed될 top의 위치
+              var connectWrapTop = $('#connect_wrap').offset().top;
+              var connectTopHeight = $('.connect_top').height();
+              var affixTop = connectWrapTop + connectTopHeight;
+
+              //affix event
+              $content.scroll(function(){
+                // st = scrollTop
+                var st = $(this).scrollTop();
+
+                if (st > startAffix) {
+                  $('.subtitle.slide_toggle').addClass('on');
+                  $('.service_menu').addClass('affix');
+                  $('.affix').css({'top' : affixTop + 'px'});
+                } else {
+                  $('.subtitle.slide_toggle').removeClass('on');
+                  $('.service_menu').removeClass('affix');
+                  $('.affix').css({'top' : 'auto'});
+                }
+              });
+            }
+          }
+        });
+      });
+    }
+    handleContentServiceMenu();
+    qaClick();
+  });
+</script>
+</body>
+
+</html>

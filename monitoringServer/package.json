@@ -1,0 +1,23 @@
+{
+  "name": "chatserver",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "description": "Connector's Monitoring Server using node.js with socket.io",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://pms.maum.ai/bitbucket/scm/fast/connectors.git"
+  },
+  "keywords": [
+    "socket.io"
+  ],
+  "author": "mindslab",
+  "homepage": "",
+  "dependencies": {
+    "socket.io": "^2.3.0"
+  }
+}

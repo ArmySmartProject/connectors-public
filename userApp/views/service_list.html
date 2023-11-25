@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" type="image/x-icon" href="/image/circle_bg.png">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="/css/font.css">
+  <link rel="stylesheet" type="text/css" href="/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="/css/csBot.css">
+  <link rel="stylesheet" type="text/css" href="/css/swiper.min.css">
+  <title>service list</title>
+</head>
+
+<body>
+<!-- connect_wrap -->
+<div id="connect_wrap">
+  <div class="connect_top">
+    <div>
+      <button type="button" class="chevron_prev text_hide" onclick="location.href='/user'">이전으로 가기</button>
+      <div class="title">
+        <div class="subtitle">
+          <em><%= topCategory %></em>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- //connect_top -->
+  <div id="content">
+    <div class="companies">
+<!--      <div class="selectbox">-->
+<!--        <select name="company_category_select" class="select" id="">-->
+<!--          <option value="all">모든 서비스</option>-->
+<!--          <option value="hospital">병원</option>-->
+<!--          <option value="restaurant">음식점</option>-->
+<!--          <option value="clothingstore">의류몰</option>-->
+<!--          <option value="game">게임</option>-->
+<!--          <option value="entertainment">엔터테인먼트</option>-->
+<!--          <option value="other">블라블라</option>-->
+<!--        </select>-->
+<!--      </div>-->
+      <!-- //selectbox -->
+      <ul class="horizon_list">
+        <% for(let service of result) { %>
+        <li>
+          <a href="/user/service/home/<%= service.url %>">
+            <img src="/image/sample/<%= service.image %>" class="company_img" alt="기업로고">
+            <em class="label"><%= service.name %></em>
+            <!-- [D] span.label 에는 class="label_explane"이 들어가야 디자인이 적용됩니다. -->
+<!--            <span class="label"><%= service.company_name %></span>-->
+            <span class="label_explane"><span><%= service.company_name %></span></span>
+          </a>
+          <button type="button" class="favorites">
+            <em class="text_hide">즐겨찾기</em>
+          </button>
+        </li>
+        <% } %>
+      </ul>
+      <!-- //horizon_list -->
+    </div>
+    <!-- //companies -->
+  </div>
+  <!-- //content -->
+  <% include ../views/footer.html %>
+  <!-- //connect_btm -->
+  <script type="text/javascript" src="/js/jQuery3.4.1.js"></script>
+  <script>
+    $(document).ready(function(){
+      var $companies = $('.companies');
+      $('.companies .favorites').on('click', function(e){
+        e.preventdefault;
+        $(this).toggleClass('on');
+      });
+    });
+  </script>
+</div>
+<!-- //connect_wrap -->
+</body>
+
+</html>

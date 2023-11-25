@@ -1,0 +1,29 @@
+{
+  "development": {
+    "username": "minds",
+    "password": "msl1234~",
+    "database": "HAPPYCALL4",
+    "host": "localhost",
+    "dialect": "mysql",
+    "timezone": "+09:00",
+    "operatorsAliases": 0
+  },
+  "test": {
+    "username": "fast",
+    "password": "ggoggoma",
+    "database": "fast_aicc",
+    "host": "10.122.64.116",
+    "dialect": "mysql",
+    "timezone": "+09:00",
+    "operatorsAliases": 0
+  },
+  "production": {
+    "username": "minds",
+    "password": "msl1234~",
+    "database": "HAPPYCALL4",
+    "host": "localhost",
+    "dialect": "mysql",
+    "timezone": "+09:00",
+    "operatorsAliases": 0
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "userapp",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "description": "Connector's User, Supporter Mobile Web Server",
+  "private": true,
+  "scripts": {
+    "start": "node bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://pms.maum.ai/bitbucket/scm/fast/connectors.git"
+  },
+  "author": "mindslab",
+  "homepage": "",
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "ejs": "~2.5.5",
+    "express-session": "^1.17.0",
+    "http-errors": "~1.6.3",
+    "moment": "^2.24.0",
+    "morgan": "~1.9.1"
+  }
+}

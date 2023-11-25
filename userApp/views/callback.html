@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="stylesheet" type="styles.css" href="/css/reset.css">
+  <link rel="stylesheet" type="styles.css" href="/css/csBot.css">
+  <title>Naver Login Callback</title>
+  <style>
+    body {
+      background-color: rgb(240, 227, 227);
+    }
+  </style>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
+
+</head>
+<body>
+
+<!-- 네이버아이디로로그인 버튼 노출 영역 -->
+<div id="naver_id_login"></div>
+<!-- //네이버아이디로로그인 버튼 노출 영역 -->
+<script type="text/javascript">
+  let clientId = 'y6L_zW1NRvZWwCjBw23v';
+  let callbackUri = 'http://localhost:3000/user/login/callback/';
+  // let callbackUri = 'http://127.0.0.1:3000/user/login/callback/';
+
+  var naverLogin = new naver.LoginWithNaverId(
+      {
+        clientId: clientId,
+        callbackUrl: callbackUri,
+        callbackHandle: true
+      }
+  );
+  naverLogin.init();
+  window.addEventListener('load', function () {
+    naverLogin.getLoginStatus(function (status) {
+      if (status) {
+        /* 필수적으로 받아야하는 프로필 정보가 있다면 callback처리 시점에 체크 */
+        var email = naverLogin.user.getEmail();
+        var name = naverLogin.user.getName();
+        if( email == undefined || email == null) {
+          /* 사용자 정보 동의페이지로 이동함 */
+          naverLogin.reprompt();
+          return;
+        }
+        $.ajax({
+          url: '/user/loginCheck',
+          type: 'POST',
+          data: {email: email, name: name},
+          success: function(res) {
+            if (res) {
+              window.location.href = res.result;
+            }
+          }
+        });
+      } else {
+        alert("네이버 로그인 연동 처리에 실패하였습니다.");
+      }
+    });
+  });
+</script>
+</body>
+
+</html>

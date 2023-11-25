@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" type="image/x-icon" href="/image/circle_bg.png">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="/css/font.css">
+  <link rel="stylesheet" type="text/css" href="/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="/css/csBot.css">
+  <link rel="stylesheet" type="text/css" href="/css/swiper.min.css">
+  <title>home</title>
+  <style>
+    body {
+      background-color: rgb(240, 227, 227);
+    }
+  </style>
+</head>
+
+<body>
+<!-- connect_wrap -->
+<div id="connect_wrap">
+  <div class="connect_top">
+    <div>
+      <button type="button" class="chevron_prev text_hide hide">이전으로 가기</button>
+      <div class="title">
+        <div class="mainlogo"><img src="/image/connectus_BI.png" alt="커넥트 어스 로고"></div>
+      </div>
+    </div>
+  </div>
+  <!-- //connect_top -->
+  <div id="content">
+    <div class="home_screen">
+      <div class="srch_box">
+        <input type="text" name="search" class="textbox_basic" placeholder="바로 말하기">
+        <span class="fas fa-microphone"></span>
+      </div>
+
+      <div class="service">
+        <div>
+          <div>
+            <em class="sub_title">최근 이용 서비스</em>
+          </div>
+          <div class="swiper-container company_list">
+            <!-- [D] company_name 추가하실 때 class="text_hide" 도 추가 부탁드립니다.
+              <span class="company_name text_hide">팬심</span> -->
+            <ul class="recent_list swiper-wrapper">
+              <li class="swiper-slide">
+                <a href="service_home.html">
+                  <img src="/image/sample/ee_company.png" alt="기업로고">
+                  <span class="company_name">팬심</span>
+                </a>
+              </li>
+              <li class="swiper-slide">
+                <a href="service_home.html">
+                  <img src="/image/sample/formongde_company.png" alt="기업로고">
+                  <span class="company_name">포몽드</span>
+                </a>
+              </li>
+              <li class="swiper-slide">
+                <a href="service_home.html">
+                  <img src="/image/sample/onnuri_company.png" alt="기업로고">
+                  <span class="company_name">온누리</span>
+                </a>
+              </li>
+              <li class="swiper-slide">
+                <a href="service_home.html">
+                  <img src="/image/sample/leeandno_company.jpg" alt="기업로고">
+                  <span class="company_name">리앤노</span>
+                </a>
+              </li>
+              <li class="swiper-slide">
+                <a href="service_home.html">
+                  <img src="/image/sample/onnuri_company.png" alt="기업로고">
+                  <span class="company_name">온누리온누리온누리</span>
+                </a>
+              </li>
+              <li class="swiper-slide">
+                <a href="service_home.html">
+                  <img src="/image/sample/leeandno_company.jpg" alt="기업로고">
+                  <span class="company_name">리앤노리앤노리앤노리앤노</span>
+                </a>
+              </li>
+            </ul>
+            <div class="swiper-pagination"></div>
+          </div>
+          <!-- [D] swiper_label li 는 recent_list > swiper-slide > company_name 을 가져와서 보여줍니다
+            handleRecentListLabel() 함수 참조
+            수정 200420 AMR 1px 겹치는 현상 해결 -->
+          <ul class="swiper_label">
+            <li class="label on"><span>aa</span><div><em class="text_hide">라벨모양 디자인</em></div></li>
+            <li class="label"><span>aa</span><div><em class="text_hide">라벨모양 디자인</em></div></li>
+          </ul>
+          <div>
+            <a href="#none" class="sub_more">전체보기 +</a>
+          </div>
+        </div>
+
+        <div>
+          <ul class="category">
+            <% for(let category of result) { %>
+            <li>
+              <a href="/user/services/<%= category.url %>"><span class="<%= category.image %>"></span><em class="label"><%= category.name %></em></a>
+            </li>
+            <% } %>
+<!--            <li>-->
+<!--              <a href="service_list.html"><span class="fas fa-hospital-alt"></span><em class="label">병원</em></a>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--              <a href="service_list.html"><span class="fas fa-utensils"></span><em class="label">음식점</em></a>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--              <a href="service_list.html"><span class="fas fa-shopping-cart"></span><em class="label">의류몰</em></a>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--              <a href="service_list.html"><span class="fas fa-gamepad"></span><em class="label">게임</em></a>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--              <a href="service_list.html"><span class="fas fa-smile"></span><em class="label">엔터테인먼트</em></a>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--              <a href="service_list.html"><span class="fas fa-question-circle"></span><em class="label">그-->
+<!--                  외</em></a>-->
+<!--            </li>-->
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- //home_screen -->
+  </div>
+  <!-- //content -->
+  <% include ../views/footer.html %>
+  <!-- //connect_btm -->
+</div>
+<!-- //connect_wrap -->
+
+<script type="text/javascript" src="/js/jQuery3.4.1.js"></script>
+<script type="text/javascript" src="/js/swiper.min.js"></script>
+<script>
+  $(document).ready(function () {
+    // swiper
+    var swiper = new Swiper('.company_list', {
+      pagination: {
+        el: '.swiper-pagination',
+      },
+    });
+
+    <!-- 수정 200420 AMR 1px 겹치는 현상 해결 -->
+    function handleRecentListLabel() {
+      var $swiperSlide = $('.service').find('.swiper-slide');
+      var $companyName = $swiperSlide.find('.company_name');
+      var $swiperLabel = $('.service').find('.swiper_label')
+      var companyLength = $swiperSlide.length;
+      var companyNames = [];
+      var slideNow = 0;
+
+      // 각 company_name에서 기업명 가져오기
+      $swiperSlide.find($companyName).each(function(){
+        companyNames.push($(this).text());
+      });
+
+      // 가져온 기업명을 swiper_label에 넣기
+      $swiperLabel.empty();
+      for (i=0, l=companyLength; i<l; i++) {
+        $swiperLabel.append('<li class="label"><span>' + companyNames[i] + '</span><div><em class="text_hide">라벨모양 디자인</em></div></li>');
+      }
+
+      // 현재 슬라이드 라벨표시
+      $swiperLabel.find('.label').eq(slideNow).addClass('on');
+
+      // pc 현재 슬라이드 라벨표시
+      $swiperSlide.on('mouseenter', function(e){
+        slideNow = $swiperSlide.index($('.swiper-slide-active'));
+
+        if ( $(this).hasClass('swiper-slide-active') ) {
+          $swiperLabel.find('.label').removeClass('on')
+          $swiperLabel.find('.label').eq(slideNow).addClass('on');
+        }
+      })
+
+      // mobile 현재 슬라이드 라벨표시
+      $swiperSlide.on('touchstart', function(e){
+        $(document).on('touchend', function(e){
+          slideNow = $swiperSlide.index($('.swiper-slide-active'));
+          setTimeout(function(){
+            if ( $swiperSlide.hasClass('swiper-slide-active') ) {
+              $swiperLabel.find('.label').removeClass('on');
+              $swiperLabel.find('.label').eq(slideNow).addClass('on');
+            }
+          },100);
+        })
+      })
+    }
+    handleRecentListLabel();
+  });
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,157 @@
+<div id="connect_btm">
+  <div id="wrapper">
+    <div class="lefe_side">
+      <a href="/user"><span class="fas fa-home"></span><em class="label">홈</em></a>
+    </div>
+    <div>
+      <a href="/user/service/chat/list" class="chat_list"><span class="far fa-comment"></span><em class="text_hide">채팅 리스트 보기</em></a>
+      <!-- [D] 총 메세지 수 표시
+        모든 페이지에 적용되어야 합니다 -->
+      <div class="new_message hide"><span class="text_hide">새로운 메세지 총</span><em class="message_num">8</em><span class="text_hide">개</span></div>
+    </div>
+    <div class="right_side">
+      <a href="/user/service/setting"><span class="fas fa-cog"></span><em class="label">설정</em></a>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" src="/js/jQuery3.4.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js"></script>
+<script type="text/javascript" src="/js/socket_client.js"></script>
+<script type="text/javascript">
+  let serverIp = '<%= serverIp %>';
+  let serverPort = '<%= serverPort %>';
+  let serverURL = serverIp + ':' + serverPort;
+  console.log('serverURL is ' + serverURL);
+
+  let userId = '<%= userId%>';
+  let userType = 'user';
+
+  console.log('[user type] : ' + userType);
+  console.log('[user id]   : ' + userId);
+
+  function goChatRoom(companyName, csService, csCategory = '') {
+
+    $.ajax({
+      url: '/user/service/chat/insertSession',
+      type: 'POST',
+      data: {companyName: companyName, serviceName: csService},
+      success: function (data) {
+        if (data.sessionId) {
+          var $goChatFrm = $('form#goChat');
+          $goChatFrm.find('input[name="sessionId"]').val(data.sessionId);
+          $goChatFrm.find('input[name="csService"]').val(csService);
+          $goChatFrm.find('input[name="csCategory"]').val(csCategory);
+          $goChatFrm.find('input[name="question"]').val('');
+          $goChatFrm.submit();
+        }
+      },
+      error: function (data) {
+        console.error('Session insert err.');
+      }
+    });
+  }
+
+  $(document).ready(function () {
+
+    var roomUUIDMap = [];
+
+    var socketClient = new SocketClient(userType, userId);
+    socketClient.setEventListeners(writeLastMessage);
+
+    '<% for(let session of chatList) { %>';
+    var csService = '<%= session.service_info.name %>';
+    var csCategory = '<%= session.service_info.name %>';
+    var roomId = '<%= session.room_number %>';
+    var sessionId = '<%= session.id %>';
+    var status = '<%= session.status %>';
+
+    roomUUIDMap.push({roomId: roomId, sessionId: sessionId, unreadMsg: 0});
+    if (status === 'end' || status === 'invalid') {
+      socketClient.getLastMsg(roomId);
+    } else {
+      socketClient.createNJoinRoom(true, csService, csCategory);
+      socketClient.getLastMsg(roomId);
+    }
+    '<%}%>';
+
+    function writeLastMessage (roomId, talker, talkObj) {
+
+      let foundRoom = roomUUIDMap.find(room => room.roomId === roomId);
+      let sessionId = foundRoom.sessionId;
+      let liId = 'session' + sessionId;
+      let $lastTxt = $('li#' + liId + ' span.last_text');
+      let $lastTxtTime = $('li#' + liId + ' em.chat_time');
+      $lastTxt.text(talkObj.message);
+      $lastTxtTime.text(talkObj.time);
+      foundRoom.timeDetail = talkObj.timeDetail;
+
+      // 'getLastMsg' 이벤트에 의하여 호출 되었을 때
+      if (talker === '') {
+        setUnreadMsgCnt(foundRoom);
+      } else {
+        if (talkObj.unreadUser) {
+          // 안읽은 msg 개수
+          foundRoom.unreadMsg += talkObj.unreadUser;
+        }
+      }
+
+      let $unreadDv = $('li#' + liId + ' div.new_message');
+
+      if (!talkObj.unreadUser || talkObj.unreadUser === 0) {
+        foundRoom.unreadMsg = 0;
+        $unreadDv.addClass('hide');
+      } else {
+        $unreadDv.removeClass('hide');
+        $unreadDv.find('em.message_num').text(foundRoom.unreadMsg + '');
+      }
+
+      let $unreadDv_btm = $('div#connect_btm div.new_message');
+      let totalUnread = 0;
+      roomUUIDMap.forEach(room => {
+        totalUnread += room.unreadMsg;
+      });
+      if (totalUnread === 0) {
+        $unreadDv_btm.addClass('hide');
+      } else {
+        $unreadDv_btm.removeClass('hide');
+        $unreadDv_btm.find('em.message_num').text(totalUnread + '');
+      }
+
+      // 전체 정렬
+      sortRoomList();
+    }
+
+    function sortRoomList() {
+      roomUUIDMap.sort(function(a, b) {
+        return (a.date + a.timeDetail) > (b.date + b.timeDetail) ? -1 :
+            (a.date + a.timeDetail) < (b.date + b.timeDetail) ? 1 : 0;
+      });
+
+      let roomList = [];
+      roomUUIDMap.forEach(room => {
+        let $li = $('li#' + 'session' + room.sessionId);
+        roomList.push($li);
+      });
+
+      let $ul = $('div.chatting_list ul.chatting');
+      $ul.html();
+      roomList.forEach(($li) => {
+        $ul.append($li);
+      });
+    }
+
+
+    // SET socketClient.unreadMsgs -> roomUUIDMap.unreadMsgCnt
+    function setUnreadMsgCnt(foundRoom) {
+
+      let obj = socketClient.unreadMsgs.find(room => room.roomId === foundRoom.roomId);
+      if (obj) {
+        foundRoom.unreadMsg = obj.unreadMsgCnt;
+      } else {
+        console.log('Cannot find room [' + roomId + '] in socketClient.unreadMsgCnt');
+      }
+    }
+
+  });
+</script>

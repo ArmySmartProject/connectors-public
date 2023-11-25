@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" type="image/x-icon" href="/image/circle_bg.png">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="/css/font.css">
+  <link rel="stylesheet" type="text/css" href="/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="/css/csBot.css">
+  <title>[user] chatting</title>
+  <style>
+    body {
+      background-color: rgb(240, 227, 227);
+    }
+  </style>
+</head>
+
+<body class="c_btm_hide">
+<!-- connect_wrap -->
+<div id="connect_wrap" style="display:none">
+  <div class="connect_top">
+    <div>
+      <button type="button" class="chevron_prev text_hide" onclick="location.href='/user/service/chat/list'">이전 페이지</button>
+      <div class="title">
+        <div class="subtitle align_center">
+          <em><%= csService %></em>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- //connect_top -->
+  <div id="content">
+    <div class="cschat_body">
+      <div class="cschat_mid">
+        <ul class="cs_talk" id="chat_talk_section">
+<!--&lt;!&ndash;          추가 200420 AMR message 안 버튼 추가&ndash;&gt;-->
+<!--          <li class="bot">-->
+<!--            <div class="message">-->
+<!--&lt;!&ndash;              [D] div.text 로 tag 변경&ndash;&gt;-->
+<!--              <div class="text">-->
+<!--                안녕하세요. 서비스센터입니다. 무엇을 도와드릴까요?-->
+<!--&lt;!&ndash;              [D] .btn_basic 태그 안에는 a와 button 모두 사용 가능합니다.&ndash;&gt;-->
+<!--                <div class="btn_basic">-->
+<!--                  <a href="#none">버튼2</a>-->
+<!--                </div>-->
+<!--                안녕하세요. 서비스센터입니다. 무엇을 도와드릴까요?-->
+<!--                <div class="btn_basic">-->
+<!--                  <button type="button">버튼2버튼2버튼2버튼2</button>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="time">-->
+<!--                <span class="time">오전 12:20</span>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="btn_basic">-->
+<!--              <button type="button">버튼1</button>-->
+<!--              <button type="button">버튼2</button>-->
+<!--              <button type="button">버튼3</button>-->
+<!--              <a href="#none">a카테고리</a>-->
+<!--              <a href="#none">a카테고리</a>-->
+<!--              <a href="#none">a카테고리</a>-->
+<!--            </div>-->
+<!--          </li>-->
+<!--          <li class="system_entry" id="chat_start_dt">-->
+<!--            <em> </em>-->
+<!--          </li>-->
+<!--          <li class="bot">-->
+<!--            <div class="time">-->
+<!--              <p class="time" id="bot_start_time"> </p>-->
+<!--            </div>-->
+<!--            <div class="message">-->
+<!--              <p class="text">-->
+<!--                안녕하세요. 서비스센터입니다. 무엇을 도와드릴까요?-->
+<!--              </p>-->
+<!--            </div>-->
+<!--          </li>-->
+
+          <!-- [D] 200421 AMR chatend class 삭제, date만 사용 가능합니다
+              <li class="date chatend" id="chat_end_dt">
+                <em>2020년 4월 6일 월요일</em>
+                <em>채팅이 종료되었습니다.</em>
+              </li>-->
+<!--          <li class="bot">-->
+<!--            <button type="button" class="chat_out">채팅종료(눌러주세요)</button>-->
+<!--          </li>-->
+
+          <!-- [D] 상담원 입장 문구 추가 AMR 200416 -->
+<!--          <li class="system_entry">-->
+<!--            <em><span>홍길동</span> 님이 입장하셨습니다.</em>-->
+<!--          </li>-->
+
+<!--          [D] 상담원이 글을 쓰고 있을 때 -->
+          <li class="bot">
+            <div class="message">
+              <div class="writing_effect">
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <div class="ball"></div>
+              </div>
+            </div>
+          </li>
+
+          <!-- [D] 200421 AMR 상담 종료 클릭 시 별점표
+              <li class="each_chatout">
+                <em>상담이 종료되었습니다.</em>
+                <div class="supporter_evaluation">
+                  <div class="text_box">
+                    <em>
+                      상담은 만족스러웠나요??
+                    </em>
+                    <p>
+                      상담 평가를 남겨주시면 다음번 상담 시<br>
+                      반영하도록 하겠습니다.
+                    </p>
+                  </div>
+                  <div class="suggestion">
+                    <div class="star_score">
+                      <div class="score">
+                        <button type="button"><em class="text_hide">5점 만점에 1점</em></button>
+                        <span class="score_text">매우 불만족입니다.</span>
+                      </div>
+                      <div class="score">
+                        <button type="button"><em class="text_hide">5점 만점에 2점</em></button>
+                        <span class="score_text">만족스럽지 못해요.</span>
+                      </div>
+                      <div class="score">
+                        <button type="button"><em class="text_hide">5점 만점에 3점</em></button>
+                        <span class="score_text">무난무난, 보통이였습니다.</span>
+                      </div>
+                      <div class="score">
+                        <button type="button"><em class="text_hide">5점 만점에 4점</em></button>
+                        <span class="score_text">만족했어요.</span>
+                      </div>
+                      <div class="score">
+                        <button type="button"><em class="text_hide">5점 만점에 5점</em></button>
+                        <span class="score_text">와우! 매우 만족합니다.</span>
+                      </div>
+                    </div>
+                    <textarea name="evaluation" id="" cols="30" rows="3" placeholder="추가 의견 작성하기"></textarea>
+                    <button type="submit" class="score_submit">완료</button>
+                  </div>
+                </div>
+              </li> -->
+
+          <!--  [D] 200421 AMR 별점표 작성 완료시
+              <li class="each_chatout">
+                <em>상담이 종료되었습니다.</em>
+                <div class="star_score">
+                  <div class="score">
+                    <button type="button"><em class="text_hide">5점 만점에 1점</em></button>
+                    <span class="score_text">매우 불만족입니다.</span>
+                  </div>
+                  <div class="score">
+                    <button type="button"><em class="text_hide">5점 만점에 2점</em></button>
+                    <span class="score_text">만족스럽지 못해요.</span>
+                  </div>
+                  <div class="score">
+                    <button type="button"><em class="text_hide">5점 만점에 3점</em></button>
+                    <span class="score_text">무난무난, 보통이였습니다.</span>
+                  </div>
+                  <div class="score">
+                    <button type="button"><em class="text_hide">5점 만점에 4점</em></button>
+                    <span class="score_text">만족했어요.</span>
+                  </div>
+                  <div class="score">
+                    <button type="button"><em class="text_hide">5점 만점에 5점</em></button>
+                    <span class="score_text">와우! 매우 만족합니다.</span>
+                  </div>
+                </div>
+              </li> -->
+        </ul>
+      </div>
+      <!-- //cschat_mid -->
+      <div class="cschat_btm">
+        <div class="user_menu">
+          <button type="button" class="menu_open"><em class="text_hide">메뉴 보기</em></button>
+          <ul class="menu">
+<!--            수정 AMR 200420 button 태그로 바꿨습니다 -->
+            <li><button type="button" id="btn_change">상담사 전환</button></li>
+            <li><button type="button" id="btn_chatout">상담 종료</button></li>
+          </ul>
+        </div>
+        <div class="user_writes">
+          <textarea name="user_message" id="user_message_input" rows="1" class="textbox_basic"></textarea>
+          <button type="button" id="text_send" class="text_hide">글 남기기</button>
+        </div>
+      </div>
+      <!-- //cschat_btm -->
+
+      <!-- cs_chat 모달 -->
+      <div class="modal">
+        <!-- 상담원 전환 모달 -->
+        <div class="basic_dialog dialog_change">
+          <p>전문 상담사로<br>전환하시겠습니까?</p>
+          <div class="btn_dual">
+            <button type="button" class="btn_cancel">취소</button>
+            <button type="button" class="btn_confirm">연결</button>
+          </div>
+        </div>
+
+        <!-- 상담 종료 모달 -->
+        <div class="basic_dialog dialog_chatout">
+          <p>상담을<br>종료하시겠습니까?</p>
+          <div class="btn_dual">
+            <button type="button" class="btn_cancel">취소</button>
+            <button type="button" class="btn_confirm">종료</button>
+          </div>
+        </div>
+      </div>
+      <!-- //cs_chat 모달 -->
+
+    </div>
+    <!-- //cschat_body -->
+  </div>
+  <!-- //content -->
+  <div id="connect_btm">
+    <div id="wrapper">
+      <div class="lefe_side">
+        <a href="/user"><span class="fas fa-home"></span><em class="label">홈</em></a>
+      </div>
+      <div>
+        <a href="/user/service/chat/list" class="chat_list"><span class="far fa-comment"></span><em class="text_hide">채팅 리스트 보기</em></a>
+        <!-- [D] 총 메세지 수 표시
+          모든 페이지에 적용되어야 합니다 -->
+<!--        <div class="new_message"><span class="text_hide">새로운 메세지 총</span><em class="message_num">8</em><span class="text_hide">개</span></div>-->
+      </div>
+      <div class="right_side">
+        <a href="/user/service/setting"><span class="fas fa-cog"></span><em class="label">설정</em></a>
+      </div>
+    </div>
+  </div>
+  <!-- //connect_btm -->
+
+<!-- [D] 별점표 일부 templete -->
+  <div class="score_template hide">
+    <div class="star_score">
+      <div class="score">
+        <button type="button"><em class="text_hide">5점 만점에 1점</em></button>
+        <span class="score_text">매우 불만족입니다.</span>
+      </div>
+      <div class="score">
+        <button type="button"><em class="text_hide">5점 만점에 2점</em></button>
+        <span class="score_text">만족스럽지 못해요.</span>
+      </div>
+      <div class="score">
+        <button type="button"><em class="text_hide">5점 만점에 3점</em></button>
+        <span class="score_text">무난무난, 보통이였습니다.</span>
+      </div>
+      <div class="score">
+        <button type="button"><em class="text_hide">5점 만점에 4점</em></button>
+        <span class="score_text">만족했어요.</span>
+      </div>
+      <div class="score">
+        <button type="button"><em class="text_hide">5점 만점에 5점</em></button>
+        <span class="score_text">와우! 매우 만족합니다.</span>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- //cschat_wrap -->
+<script type="text/javascript" src="/js/jQuery3.4.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js"></script>
+<script type="text/javascript">
+
+  var serverIp = '<%= serverIp %>';
+  var serverPort = '<%= serverPort %>';
+  var serverURL = serverIp + ':' + serverPort;
+  console.log('serverURL is ' + serverURL);
+
+  var userId = '<%= userId%>';
+  var userType = 'user';
+
+  var sessionId = '<%= sessionId %>';
+  var csService = '<%= csService %>';
+  var csCategory = '<%= csCategory %>';
+  var firstQuestion = '<%= question %>';
+  var supportType = '<%= supportType %>';
+
+</script>
+<script type="text/javascript" src="/js/chat.js"></script>
+<script type="text/javascript" src="/js/socket_client.js"></script>
+<script type="text/javascript" src="/js/chatbot_monitor_socket.js"></script>
+</body>
+
+</html>

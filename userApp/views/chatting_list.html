@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" type="image/x-icon" href="/image/circle_bg.png">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+        crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="/css/font.css">
+  <link rel="stylesheet" type="text/css" href="/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="/css/csBot.css">
+  <title>chatting list</title>
+</head>
+
+<body>
+<!-- connect_wrap -->
+<div id="connect_wrap">
+  <div class="connect_top">
+    <div>
+      <button type="button" class="chevron_prev text_hide hide">이전으로 가기</button>
+      <div class="title">
+        <div class="subtitle">
+          <em>상담</em>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- //connect_top -->
+  <div id="content">
+    <div class="chatting_list">
+      <ul class="chatting">
+        <% for(let session of chatList) { %>
+        <li id='session<%=session.id %>'>
+          <!-- [D] 새로운 메세지가 0일 때는
+            .new_message 에 .hide 추가해주세요 -->
+          <div class="new_message hide"><span class="text_hide">새로운 메세지</span><em
+              class="message_num">3</em><span class="text_hide">개</span></div>
+          <div class="image">
+            <img src="/image/sample/<%= session.service_info.image %>" class="company_img"
+                 alt="기업로고">
+          </div>
+          <a onclick="goChatRoom('<%= session.service_info.company_name %>', '<%= session.service_info.name %>')">
+            <em class="label"><%= session.service_info.name %></em>
+<!--            [D] .last_text style 은 ellipsis 적용되면 지워주세요. -->
+            <span class="last_text" style="display: block; overflow: hidden; max-height: 40px;">고객님 팬심 서비스 관련 어떤 내용이 궁굼하신가요??</span>
+          </a>
+          <!-- [D] .chat_time format
+            오늘 : 오전/오후 HH:MM
+            하루 전 : 어제
+            이번연도 : MM월 DD일
+            이전연도 : YYYY.MM.DD
+          -->
+          <em class="chat_time">오후 4:33</em>
+        </li>
+        <% } %>
+
+<!--        2줄 말줄임표 -->
+        <!-- 1줄일 때 -->
+<!--        <li>-->
+<!--          <div class="new_message hide"><span class="text_hide">새로운 메세지</span><em class="message_num">0</em><span class="text_hide">개</span></div>-->
+<!--          <div class="image">-->
+<!--            <img src="/image/sample/ee_company.png" class="company_img" alt="기업로고">-->
+<!--          </div>-->
+<!--          <a href="chat_user.html">-->
+<!--            <em class="label">팬심</em>-->
+<!--            <span class="ellipsis_box">-->
+<!--              <span class="last_text">고객님 어떤 내용이 궁굼하신가요??</span>-->
+<!--            </span>-->
+<!--          </a>-->
+<!--          <em class="chat_time">오후 4:33</em>-->
+<!--        </li>-->
+        <!-- 2줄일 때 -->
+<!--        <li>-->
+<!--          <div class="new_message"><span class="text_hide">새로운 메세지</span><em class="message_num">2</em><span class="text_hide">개</span></div>-->
+<!--          <div class="image">-->
+<!--            <img src="/image/sample/leeandno_company.jpg" class="company_img" alt="기업로고">-->
+<!--          </div>-->
+<!--          <a href="chat_user.html">-->
+<!--            <em class="label">리앤노</em>-->
+<!--            <span class="last_text">고객님 팬심 서비스 관련 어떤 내용이 궁굼하신가요??</span>-->
+<!--          </a>-->
+<!--          <em class="chat_time">4월 2일</em>-->
+<!--        </li>-->
+        <!-- 3줄 이상 한글(2byte씩) 일 때 -->
+        <li>
+          <div class="new_message"><span class="text_hide">새로운 메세지</span><em class="message_num">2</em><span class="text_hide">개</span></div>
+          <div class="image">
+            <img src="/image/sample/onnuri_company.png" class="company_img" alt="기업로고">
+          </div>
+          <a href="chat_user.html">
+            <em class="label">온누리</em>
+            <span class="last_text">제가 그 때 마이페이지에서 설정을 바꿨는데 그 이후로 즐겨찾기한 기업이 뜨지를 않아요. 어떻게 해야 하나요?</span>
+          </a>
+          <em class="chat_time">2019.07.08</em>
+        </li>
+        <!-- 3줄 이상 영문(1byte씩) 일 때 -->
+        <li>
+          <div class="new_message"><span class="text_hide">새로운 메세지</span><em class="message_num">0</em><span class="text_hide">개</span></div>
+          <div class="image">
+            <img src="/image/sample/formongde_company.png" class="company_img" alt="기업로고">
+          </div>
+          <a href="chat_user.html">
+            <em class="label">포몽드</em>
+            <span class="last_text">https://annette-an.github.io/my_challenge/csBot/chat_user.html/my_challenge/csBot/chat_user.html</span>
+          </a>
+          <em class="chat_time">어제</em>
+        </li>
+        <!-- <br>이 있을 때 (구현안되어있음) -->
+        <li>
+          <div class="new_message"><span class="text_hide">새로운 메세지</span><em class="message_num">0</em><span class="text_hide">개</span></div>
+          <div class="image">
+            <img src="/image/sample/ee_company.png" class="company_img" alt="기업로고">
+          </div>
+          <a href="chat_user.html">
+            <em class="label">팬심</em>
+            <span class="last_text">고객님 팬심 서비스 관련 어떤 내용이 궁굼하신가요??<br> 상담을 도와드리겠습니다.<br> 상담을 도와드리겠습니다.</span>
+          </a>
+          <em class="chat_time">오후 4:33</em>
+        </li>
+
+      </ul>
+      <!-- //horizon_list -->
+    </div>
+    <!-- //chatting_list -->
+  </div>
+  <!-- //content -->
+  <% include ../views/footer.html %>
+  <!-- //connect_btm -->
+</div>
+<!-- //connect_wrap -->
+
+<form id="goChat" method="post" action="/user/service/chat" style="display:none">
+  <input type="text" name="sessionId">
+  <input type="text" name="csService">
+  <input type="text" name="csCategory">
+  <input type="text" name="question">
+</form>
+
+<script src="/js/jQuery3.4.1.js"></script>
+<script>
+  $(document).ready(function(){
+    function handleTwoLineEllipsis() {
+      var txt = $('.last_text')
+      // var txtArray = [];
+
+      for ( var index=0, length=txt.length; index<length; index++) {
+        var thisTxt = $('.last_text').eq(index);
+        var thisTxtByte = thisTxt.text();
+        // txtArray.push(thisTxtByte);
+
+        if (byte(thisTxtByte) > 55) {
+          // console.log(byte(thisTxtByte), 'byteval')
+          var cutTxt = thisTxtByte.substring(0, 36) + '...';
+          thisTxt.text(cutTxt);
+        }
+      }
+      // console.log(txtArray)
+
+      function byte(str) {
+        var byteNum = 0;
+        for ( i = 0; i < str.length; i++) {
+          byteNum += (str.charCodeAt(i) > 127) ? 2 : 1;
+          if (byteNum < 500) {
+            thisTxtByte += str.charAt(i);
+          };
+        };
+        return Math.round(byteNum);
+      }
+    }
+    handleTwoLineEllipsis();
+  });
+</script>
+</body>
+
+</html>

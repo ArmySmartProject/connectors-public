@@ -1,29 +1,54 @@
-# README #
+# Connectors
+Connectors, Connect Us!
+This is Mindslab's OPEN CS Platform.
 
-This README would normally document whatever steps are necessary to get your application up and running.
+## env
 
-### What is this repository for? ###
+-  required
+```
+$ node -v
+v17.7.2
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+$ npm -v
+8.5.2
+```
 
-### How do I get set up? ###
+## how to run chatting server
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+0. install common module
 
-### Contribution guidelines ###
+```
+$ npm install
+```
 
-* Writing tests
-* Code review
-* Other guidelines
+1. npm module install:
 
-### Who do I talk to? ###
+```
+cd chatServer
+$ npm install
+```
 
-* Repo owner or admin
-* Other community or team contact
+2. start chatting server
+
+> using port 50000
+
+```
+$ npm run chat
+```
+
+
+## how to run mobile web server
+1. npm module install
+```
+$ cd userApp
+$ npm install
+```
+
+2. start web server
+> using port 3000
+```
+$ npm run start
+```
+
+
+

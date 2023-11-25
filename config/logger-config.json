@@ -1,0 +1,15 @@
+{
+    "development": {
+      "loggerIP" : "localhost",
+      "loggerPort" : 6950
+    },
+    "test": {
+        "loggerIP" : "localhost",
+        "loggerPort" : 6950
+    },
+    "production": {
+        "loggerIP" : "localhost",
+        "loggerPort" : 6950
+    }
+  }
+  

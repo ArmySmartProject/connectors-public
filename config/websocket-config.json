@@ -1,0 +1,20 @@
+{
+  "development": {
+    "serverIp": "localhost",
+    "serverPort": "50000",
+    "monitoringServerIp": "localhost",
+    "monitoringServerPort": "51000"
+  },
+  "test": {
+    "serverIp": "localhost",
+    "serverPort": "50000",
+    "monitoringServerIp": "localhost",
+    "monitoringServerPort": "51000"
+  },
+  "production": {
+    "serverIp": "fast-aicc.maum.ai",
+    "serverPort": "50000",
+    "monitoringServerIp": "localhost",
+    "monitoringServerPort": "51000"
+  }
+}

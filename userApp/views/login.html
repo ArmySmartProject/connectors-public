@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" type="image/x-icon" href="/image/circle_bg.png">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <meta name="google-signin-client_id" content="996588778775-7ht50odm9h212noi17tl3lsqv3o3pt3o.apps.googleusercontent.com">
+  <link rel="stylesheet" type="text/css" href="/css/font.css">
+  <link rel="stylesheet" type="text/css" href="/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="/css/csBot.css">
+  <title>Login</title>
+  <style>
+    body {
+      background-color: rgb(240, 227, 227);
+    }
+  </style>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <!--<script type="text/javascript" src="https://apis.google.com/js/platform.js" async defer></script>-->
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
+</head>
+<body>
+<!-- connect_wrap -->
+<div id="connect_wrap">
+  <div class="connect_top">
+    <div>
+      <button type="button" class="chevron_prev text_hide">이전 페이지</button>
+      <div class="title">
+        <div class="subtitle align_center">
+          <em></em>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- //connect_top -->
+  <div id="content" style="height: 100%">
+    <div class="connect_login">
+      <div class="login_wrap">
+        <div class="loginbox">
+          <div class="title">
+            <div class="mainlogo"><img src="/image/connectus_BI.png" alt="커넥트 어스 로고"></div>
+          </div>
+
+          <div class="login">
+            <input type="text" placeholder="아이디">
+            <input type="password" placeholder="비밀번호">
+            <button type="submit">로그인</button>
+            <div class="each_checkbox">
+              <input type="checkbox" id="login_info"><label for="login_info">로그인 정보 유지</label>
+            </div>
+          </div>
+        </div>
+        <!-- //login -->
+        <div class="other_loginbox">
+          <div class="back_line">
+            <em class="text_hide">커넥터스 아이디가 없을 경우</em>
+            <span>또는 소셜 로그인</span>
+          </div>
+
+          <ul class="other_login">
+            <li id="naverIdLogin"><em class="text_hide">네이버 아이디로 로그인 하기</em></li>
+            <li class="g-signin2" data-onsuccess="onSignIn"><em class="text_hide">구글 아이디로 로그인 하기</em></li>
+            <li class="hide"><em class="text_hide">페이스북 아이디로 로그인 하기</em></li>
+            <li class="hide"><em class="text_hide">카카오톡 아이디로 로그인 하기</em></li>
+          </ul>
+        </div>
+        <!-- //other_login -->
+      </div>
+      <!-- //login_wrap -->
+    </div>
+    <!-- //connect_login -->
+  </div>
+  <!-- //content -->
+  <!-- //connect_btm -->
+</div>
+<!-- //connect_wrap -->
+
+<!-- 네이버 아이디로로그인 버튼 노출 영역 -->
+<!--<div id="naverIdLogin"></div>-->
+<!-- 구글 아이디로로그인 버튼 노출 영역 -->
+<!--<div class="g-signin2" data-onsuccess="onSignIn"></div>-->
+<script type="text/javascript">
+  let clientId = 'y6L_zW1NRvZWwCjBw23v';
+  let callbackUri = 'http://localhost:3000/user/login/callback/';
+  // let callbackUri = 'http://127.0.0.1:3000/user/login/callback';
+
+  var naverLogin = new naver.LoginWithNaverId({
+    clientId: clientId,
+    callbackUrl: callbackUri,
+    isPopup: false, /* 팝업을 통한 연동처리 여부 */
+    loginButton: {color: "green", type: 2, height: 40} /* 로그인 버튼의 타입을 지정 */
+  });
+  naverLogin.init();
+
+  var isButtonClicked = false;
+  $('.g-signin2').click(function() {
+    isButtonClicked = true;
+  });
+
+  function onSignIn(googleUser) {
+    if (isButtonClicked === true) {
+      let profile = googleUser.getBasicProfile();
+      console.log("Email: " + profile.getEmail());
+      console.log('Full Name: ' + profile.getName());
+      $.ajax({
+        url: '/user/loginCheck',
+        type: 'POST',
+        data: {email: profile.getEmail(), name: profile.getName()},
+        success: function(res) {
+          if (res) {
+            window.location.href = res.result;
+          }
+        }
+      });
+    }
+  }
+</script>
+</body>
+
+</html>

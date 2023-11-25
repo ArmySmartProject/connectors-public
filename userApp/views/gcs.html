@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" type="image/x-icon" href="/image/circle_bg.png">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="/css/font.css">
+  <link rel="stylesheet" type="text/css" href="/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="/css/csBot.css">
+  <title>[gcs] 채팅상담화면</title>
+  <style>
+    body {
+      background-color: rgb(240, 227, 227);
+    }
+  </style>
+</head>
+
+<body class="c_btm_hide">
+<div id="supporter_btn_div">
+  <button type="button" style="
+    background-color: powderblue;
+    font-size: 20px;
+    font-family: 'NotoSansKR', sans-serif;"
+    class="supporter_test_btn">문의목록보기</button>
+</div>
+
+<div style="overflow: hidden; position: fixed;top:30px; left: 0px;
+    background-color:#ffffff; width:350px; height: 500px; border: 1px solid;">
+  <div class="chatting_list">
+    <ul id="chat_candidates" class="chatting">
+      <div id="bot_rooms"></div>
+      <div id="my_rooms"></div>
+      <div id="av_rooms"></div>
+<!--      <li id='session61' style="border: 1px solid">-->
+<!--        &lt;!&ndash; [D] 새로운 메세지가 0일 때는-->
+<!--          .new_message 에 .hide 추가해주세요 &ndash;&gt;-->
+<!--        <div class="new_message"><span class="text_hide">새로운 메세지</span><em class="message_num">0</em><span class="text_hide">개</span></div>-->
+<!--        <div class="image">-->
+<!--          <img src="/image/arrow_bottom.png" class="company_img" alt="기업로고">-->
+<!--        </div>-->
+<!--        <a onclick="goChatRoom('서비스')">-->
+<!--          <em class="label">서비스</em>-->
+<!--          <span class="last_text">고객님 팬심 서비스 관련 어떤 내용이 궁굼하신가요??</span>-->
+<!--        </a>-->
+<!--        <em class="chat_time">오후 4:33</em>-->
+      </li>
+    </ul>
+    <!-- //horizon_list -->
+  </div>
+</div>
+<div style="display:inline-block; width:450px; height: 500px;">
+</div>
+<div style="overflow: hidden; position: fixed;top:30px; left: 800px;
+    width:350px; height: 500px; border: 1px solid;">
+  <ul id="chat_user_info">
+    <li class="csService">서비스: <em></em></li>
+    <li class="customerName">유저: <em></em></li>
+  </ul>
+</div>
+<button style="overflow: hidden; position: fixed; bottom:30px; left: 450px;
+    width:100px; height: 50px; border: 1px solid;" id="joinRoom_btn">상담개입</button>
+<button style="overflow: hidden; position: fixed; bottom:30px; left: 570px;
+    width:100px; height: 50px; border: 1px solid;" id="endChat_btn">상담종료</button>
+  <!-- cschat_wrap -->
+  <div id="connect_wrap" style="top:50px;left:400px">
+    <div class="connect_top">
+      <div>
+<!--        <button type="button" class="chevron_prev text_hide">이전 페이지</button>-->
+        <div class="title" id="gcs_title"><em>[gcs] 채팅상담화면</em></div>
+      </div>
+    </div>
+    <!-- //cschat_top -->
+    <div id="content">
+      <div class="cschat_body">
+        <div class="cschat_mid">
+          <ul class="cs_talk" id="chat_talk_section">
+<!--            <li class="bot">-->
+<!--              <div class="message">-->
+<!--                <p class="text">-->
+<!--                  고객님과 상담을 시작합니다.-->
+<!--                </p>-->
+<!--              </div>-->
+<!--            </li>-->
+            <!--<li class="date chatend" id="chat_end_dt">-->
+            <!--<em>2020년 4월 6일 월요일</em>-->
+            <!--<em>채팅이 종료되었습니다.</em>-->
+            <!--</li>-->
+<!--            <li class="bot">-->
+<!--              <button type="button" class="chat_out">채팅종료(눌러주세요)</button>-->
+<!--            </li>-->
+          </ul>
+        </div>
+        <!-- //cschat_mid -->
+        <div class="cschat_btm">
+          <div class="user_writes">
+            <textarea name="user_message" id="user_message_input" rows="1" class="textbox_basic" disabled></textarea>
+            <button type="button" id="text_send" class="text_hide">글 남기기</button>
+          </div>
+        </div>
+        <!-- //cschat_btm -->
+      </div>
+      <!-- //cschat_body -->
+    </div>
+    <!-- //content -->
+    <div id="connect_btm">
+      <div id="wrapper">
+        <div class="lefe_side">
+          <a href="#none"><span class="fas fa-home"></span><em class="label">홈</em></a>
+        </div>
+        <div>
+          <a href="#none" class="chat_list"><span class="far fa-comment"></span><em class="text_hide">이전 채팅 보기</em></a>
+        </div>
+        <div class="right_side">
+          <a href="#none"><span class="fas fa-cog"></span><em class="label">설정</em></a>
+        </div>
+      </div>
+    </div>
+    <!-- //connect_btm -->
+  </div>
+<!-- //cschat_wrap -->
+  <script type="text/javascript" src="/js/jQuery3.4.1.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js"></script>
+<script type="text/javascript">
+
+    var serverIp = '<%= serverIp %>';
+    var serverPort = '<%= serverPort %>';
+    var serverURL = serverIp + ':' + serverPort;
+    console.log('serverURL is ' + serverURL);
+
+    var userId = 'GCS 채팅상담사';
+    var userType = 'supporter';
+    var userOption = 'gcs';
+  </script>
+<script type="text/javascript" src="/js/chat.js"></script>
+<script type="text/javascript" src="/js/socket_client.js"></script>
+<script type="text/javascript" src="/js/chatbot_monitor_socket.js"></script>
+</body>
+
+</html>

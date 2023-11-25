@@ -1,0 +1,25 @@
+{
+  "name": "connectors",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "description": "CONNECTORS: Mindslab's Open CS Platform",
+  "main": "chatServer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "migrate": "node migrate.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://pms.maum.ai/bitbucket/scm/fast/connectors.git"
+  },
+  "author": "fast-ai",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "dependencies": {
+    "mysql2": "^2.1.0",
+    "sequelize": "^5.21.6",
+    "express": "~4.17.1"
+  }
+}
