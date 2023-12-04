@@ -3,7 +3,8 @@
     "username": "minds",
     "password": "msl1234~",
     "database": "HAPPYCALL4",
-    "host": "localhost",
+    "host": "maumai-db",
+    "port": "9004",
     "dialect": "mysql",
     "timezone": "+09:00",
     "operatorsAliases": 0
@@ -21,7 +22,8 @@
     "username": "minds",
     "password": "msl1234~",
     "database": "HAPPYCALL4",
-    "host": "localhost",
+    "host": "maumai-db",
+    "port": "9004",
     "dialect": "mysql",
     "timezone": "+09:00",
     "operatorsAliases": 0
