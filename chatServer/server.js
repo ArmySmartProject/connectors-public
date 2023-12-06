@@ -5,7 +5,43 @@ const config_path = require('path');
 const sds_env = process.env.NODE_ENV || 'development';
 const sds_config = require(config_path.join(__dirname, '..', 'config', 'logger-config.json'))[sds_env];
 
-const app = http.createServer();
+const app = http.createServer((req, res) => {
+  if (req.url === '/api/chatbot/sendMsg' && req.method === 'POST') {
+    let messageObj = {};
+    req.on('data', chunk => {
+      let data = JSON.parse(chunk);
+      messageObj = data.messageObj;
+    });
+
+    req.on('end', () => {
+      rooms.forEach(room => {
+        let roomId = room.roomId;
+        let talkObj = {
+          userType: 'supporter',
+          message: messageObj.message,
+          jobList: messageObj.jobList,
+          adapterResponse: undefined,
+          date: getDate(), time: getTime(), timeDetail: getTimeWithSecond(),
+          unreadUser: 1, unreadSupporter: 0
+        };
+        let data = {
+          roomId: roomId,
+          talkObj: talkObj,
+          userType: 'alarm'
+        };
+        // to room
+        io.to(roomId).emit('message', data);
+      });
+      res.writeHead(200, {
+        'Content-Type': 'text/html',
+      });
+      res.end('<h1>ok</h1>');
+      return;
+    });
+
+    return;
+  }
+});
 
 const path = require('path');
 
