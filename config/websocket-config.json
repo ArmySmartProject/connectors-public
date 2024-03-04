@@ -12,7 +12,7 @@
     "monitoringServerPort": "51000"
   },
   "production": {
-    "serverIp": "fast-aicc-dev.maum.ai",
+    "serverIp": "localhost",
     "serverPort": "50000",
     "monitoringServerIp": "localhost",
     "monitoringServerPort": "51000"
